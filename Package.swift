@@ -8,6 +8,7 @@ let package = Package(
     platforms: [.iOS(.v13)],
     products: [
         .library(name: "NNToast", targets: ["NNToast"]),
+        .library(name: "Toast", targets: ["Toast"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Zean-Technology-Co-Ltd/FoundationEx.git", .upToNextMajor(from: "1.0.0"))
