@@ -19,6 +19,12 @@ let package = Package(
             dependencies: [
               "FoundationEx",
               "Toast"
+            ],
+            resources: [
+                .process("Resources"),
+                .process("code_icon_alert.png"),
+                .process("code_icon_fail.png"),
+                .process("icon_success_application.png")
             ]),
         .target(
           name: "Toast",

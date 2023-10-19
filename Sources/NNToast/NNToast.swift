@@ -8,9 +8,12 @@
 import UIKit
 import FoundationEx
 import Toast
-
+import CoreGraphics
+import Foundation
 open class Toast: NSObject {
-    
+    private static let errorImage = loadImageBundle(named: "code_icon_fail")
+    private static let successImage = loadImageBundle(named: "icon_success_application")
+    private static let infoImage = loadImageBundle(named: "code_icon_alert")
    public static let `default`: Toast = {
         return Toast()
     }()
@@ -63,27 +66,27 @@ open class Toast: NSObject {
     }
     
     public static func showSuccess(_ message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        showToast(message, image: UIImage(named: "code_icon_alert"), clearTime: clearTime, completion: completion)
+        showToast(message, image: successImage, clearTime: clearTime, completion: completion)
     }
     
     public static func showError(_ message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        showToast(message, image: UIImage(named: "code_icon_fail"), clearTime: clearTime, completion: completion)
+        showToast(message, image: errorImage, clearTime: clearTime, completion: completion)
     }
     
     public static func showInfo(_ message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        showToast(message, image: UIImage(named: "code_icon_alert"), clearTime: clearTime, completion: completion)
+        showToast(message, image: infoImage, clearTime: clearTime, completion: completion)
     }
     
     public static func showSuccess(_ view: UIView, message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        self.showToast(view, message: message, image: UIImage(named: "icon_success_application"), clearTime: clearTime, completion: completion)
+        self.showToast(view, message: message, image: successImage, clearTime: clearTime, completion: completion)
     }
     
     public static func showError(_ view: UIView, message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        self.showToast(view, message: message, image: UIImage(named: "code_icon_fail"), clearTime: clearTime, completion: completion)
+        self.showToast(view, message: message, image: errorImage, clearTime: clearTime, completion: completion)
     }
     
     public static func showInfo(_ view: UIView, message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        self.showToast(view, message: message, image: UIImage(named: "code_icon_alert"), clearTime: clearTime, completion: completion)
+        self.showToast(view, message: message, image: infoImage, clearTime: clearTime, completion: completion)
     }
     
     public static func wait() {
@@ -98,5 +101,8 @@ open class Toast: NSObject {
         self.topmostViewController?.view.hideAllToasts()
     }
     
+    fileprivate static func loadImageBundle(named imageName:String) -> UIImage? {
+        let picture = Bundle.module.path(forResource: imageName, ofType: "png")
+        return UIImage(contentsOfFile: picture!)
+    }
 }
-
