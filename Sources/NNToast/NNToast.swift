@@ -7,6 +7,7 @@
 
 import UIKit
 import FoundationEx
+import Toast
 
 open class Toast: NSObject {
     

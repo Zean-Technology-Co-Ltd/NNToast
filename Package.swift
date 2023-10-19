@@ -16,8 +16,13 @@ let package = Package(
         .target(
             name: "NNToast",
             dependencies: [
-              "FoundationEx"
+              "FoundationEx",
+              "Toast"
             ]),
+        .target(
+          name: "Toast",
+          dependencies: []
+        ),
         .testTarget(
             name: "NNToastTests",
             dependencies: ["NNToast"]),
