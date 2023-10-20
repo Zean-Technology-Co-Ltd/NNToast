@@ -8,13 +8,12 @@
 import UIKit
 import FoundationEx
 import Toast
-import CoreGraphics
 import Foundation
 open class Toast: NSObject {
     private static let errorImage = loadImageBundle(named: "code_icon_fail")
     private static let successImage = loadImageBundle(named: "icon_success_application")
     private static let infoImage = loadImageBundle(named: "code_icon_alert")
-   public static let `default`: Toast = {
+    public static let `default`: Toast = {
         return Toast()
     }()
     
@@ -101,8 +100,22 @@ open class Toast: NSObject {
         self.topmostViewController?.view.hideAllToasts()
     }
     
-    fileprivate static func loadImageBundle(named imageName:String) -> UIImage? {
-        let picture = Bundle.module.path(forResource: imageName, ofType: "png")
-        return UIImage(contentsOfFile: picture!)
+    fileprivate class func loadImageBundle(named name: String) -> UIImage {
+        let primaryBundle = Bundle(for: Toast.self)
+        if let image = UIImage(named: name, in: .module, compatibleWith: nil) {
+            // Load image from SPM if available
+            return image
+        } else if let image = UIImage(named: name, in: primaryBundle, compatibleWith: nil) {
+            // Load image in cases where PKHUD is directly integrated
+            return image
+        } else if
+            let subBundleUrl = primaryBundle.url(forResource: "NNToast", withExtension: "bundle"),
+            let subBundle = Bundle(url: subBundleUrl),
+            let image = UIImage(named: name, in: subBundle, compatibleWith: nil)
+        {
+            return image
+        }
+        
+        return UIImage()
     }
 }
