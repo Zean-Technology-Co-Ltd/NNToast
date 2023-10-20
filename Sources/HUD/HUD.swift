@@ -44,7 +44,7 @@ open class HUD: NSObject {
         ProgressHUD.imageSuccess = loadImageBundle(named: "icon_success_application")
         ProgressHUD.imageError = loadImageBundle(named: "code_icon_fail")
         ProgressHUD.colorAnimation = .white
-        ProgressHUD.colorBackground = .black.withAlphaComponent(0.4)
+        ProgressHUD.colorBackground = .clear
         ProgressHUD.colorHUD = .black
         ProgressHUD.colorStatus = .white
         ProgressHUD.mediaSize = 60
