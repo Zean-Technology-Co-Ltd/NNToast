@@ -9,12 +9,18 @@ let package = Package(
     products: [
         .library(name: "NNToast", targets: ["NNToast"]),
         .library(name: "Toast", targets: ["Toast"]),
+        .library(name: "HUD", targets: ["HUD"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/relatedcode/ProgressHUD.git", .upToNextMajor(from: "14.0.0")),
+        .package(url: "https://github.com/Zean-Technology-Co-Ltd/FoundationEx.git", .upToNextMajor(from: "1.0.0")),
     ],
     targets: [
         .target(
             name: "NNToast",
             dependencies: [
-              "Toast"
+              "Toast",
+              "FoundationEx"
             ],
             resources: [
                 .process("Resources")
@@ -22,6 +28,15 @@ let package = Package(
         .target(
           name: "Toast",
           dependencies: []
+        ),
+        .target(
+          name: "HUD",
+          dependencies: [
+            "ProgressHUD"
+          ],
+          resources: [
+              .process("Resources")
+          ]
         ),
         .testTarget(
             name: "NNToastTests",

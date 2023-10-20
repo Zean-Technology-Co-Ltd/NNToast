@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "foundationex",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Zean-Technology-Co-Ltd/FoundationEx.git",
+      "state" : {
+        "revision" : "8bb865c019a0225117ba73b5c16e3ce8f23ac5cb",
+        "version" : "1.0.7"
+      }
+    },
+    {
+      "identity" : "progresshud",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/relatedcode/ProgressHUD.git",
+      "state" : {
+        "revision" : "5a7e1ba99652f429eb3bf60de0558cacc5c384be",
+        "version" : "14.1.0"
+      }
+    }
+  ],
+  "version" : 2
+}
