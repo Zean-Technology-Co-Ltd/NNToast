@@ -10,14 +10,10 @@ let package = Package(
         .library(name: "NNToast", targets: ["NNToast"]),
         .library(name: "Toast", targets: ["Toast"]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/Zean-Technology-Co-Ltd/FoundationEx.git", .upToNextMajor(from: "1.0.0"))
-    ],
     targets: [
         .target(
             name: "NNToast",
             dependencies: [
-              "FoundationEx",
               "Toast"
             ],
             resources: [

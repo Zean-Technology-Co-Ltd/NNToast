@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import FoundationEx
 import Toast
-import Foundation
-open class Toast: NSObject {
+
+open class Toast {
     private static let errorImage = loadImageBundle(named: "code_icon_fail")
     private static let successImage = loadImageBundle(named: "icon_success_application")
     private static let infoImage = loadImageBundle(named: "code_icon_alert")
@@ -59,7 +58,7 @@ open class Toast: NSObject {
     
     public static func showToast(_ message: String, image: UIImage?, clearTime: TimeInterval = autoDismissTime, completion: ((_ didTap: Bool)->())? = nil) {
         DispatchQueue.main.async {
-            guard let view = (UIApplication.shared.nn_keyWindow ?? self.topmostViewController?.view) else { return }
+            guard let view = (self.nn_keyWindow ?? self.topmostViewController?.view) else { return }
             self.showToast(view, message: message, image: image, clearTime: clearTime, completion: completion)
         }
     }
@@ -117,5 +116,58 @@ open class Toast: NSObject {
         }
         
         return UIImage()
+    }
+    
+    private static var topmostViewController: UIViewController?{
+        let topViewController = self.nn_keyWindow?.rootViewController
+
+        guard var topViewController = topViewController else { return nil }
+
+        while (true) {
+            if topViewController.presentedViewController != nil {
+                topViewController = topViewController.presentedViewController!
+            } else if topViewController is UINavigationController {
+                let navi = topViewController as! UINavigationController
+                topViewController = navi.topViewController!
+            } else if topViewController is UITabBarController {
+                let tab = topViewController as! UITabBarController
+                topViewController = tab.selectedViewController!
+            } else {
+                break
+            }
+        }
+        
+        return topViewController
+    }
+    
+    private static var nn_keyWindow: UIWindow? {
+        if #available(iOS 14.0, *) {
+            if let window = UIApplication.shared.connectedScenes.map({$0 as? UIWindowScene}).compactMap({$0}).first?.windows.first {
+                return window
+            } else if let window = UIApplication.shared.delegate?.window {
+                return window
+            } else {
+                return nil
+            }
+        } else if #available(iOS 13.0, *) {
+            if let window = UIApplication.shared.connectedScenes
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first{
+                return window
+            } else if let window = UIApplication.shared.delegate?.window {
+                return window
+            } else {
+                return nil
+            }
+        } else {
+            if let window = UIApplication.shared.delegate?.window {
+                return window
+            }else{
+                return nil
+            }
+        }
     }
 }
