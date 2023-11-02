@@ -47,8 +47,9 @@ open class HUD: NSObject {
         ProgressHUD.colorBackground = .clear
         ProgressHUD.colorHUD = .black
         ProgressHUD.colorStatus = .white
-        ProgressHUD.mediaSize = 60
+        ProgressHUD.mediaSize = 80
         ProgressHUD.marginSize = 20
+        ProgressHUD.colorProgress = .white
         ProgressHUD.fontStatus = UIFont.systemFont(ofSize: 18, weight: .medium)
     }
     
